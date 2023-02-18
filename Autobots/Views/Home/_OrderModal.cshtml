@@ -1,0 +1,224 @@
+﻿@model Autobots.Entities.Models.ViewModels.OrderResponseModel
+
+@{
+    decimal totalservicecharges = 0;
+
+}
+<style>
+    .modal-title{
+        padding:20px 10px 23px 0px;
+        color:#be0014;
+    }
+    .modal-header {
+        border-bottom: 1px solid #c50b0b;
+        background-color: #be0014;
+        color: #fff;
+    }
+</style>
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h2 class="modal-title text-center" id="myModalLabel" style="color:#fff">CheckOut Information</h2>
+        </div>
+        <p style="color:#be0014; text-align:center;">Please Enter Your Contact Information and Review Your Provided Information and Confirm Your Appointment !</p>
+        <div class="modal-body">
+            <form id="model-form">
+                <div class="col-lg-12 col-md-12">
+                    @Html.HiddenFor(m => m.orderid)
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="form-group">
+                            <label for="name" class="control-label">Name</label>
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" ,@placeholder="Name"})
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label for="name" class="control-label">Name</label>
+                            <input type="text" class="form-control" required id="user-name" name="@Html.NameFor(m=>m.Name)">
+                        </div>
+
+
+                    }
+
+                </div>
+
+
+
+                <div class="col-lg-12 col-md-12">
+
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <div class="form-group">
+                            <label for="email" class="control-label">Email</label>
+                            @Html.TextBoxFor(x => x.email, new { @class = "form-control" ,@Required="required"})
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label for="email" class="control-label">Email</label>
+                            <input type="text" class="form-control" id="user-email"  required name="@Html.NameFor(m => m.email)">
+                        </div>
+                    }
+
+                </div>
+
+
+                <div class="col-lg-12 col-md-12">
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <div class="form-group">
+                            <label for="contact" class="control-label">Contact #</label>
+                            @Html.TextBoxFor(x => x.contact, new { @class = "form-control" , @Required="required" })
+                        </div>
+
+
+                    }
+                    else
+                    {
+
+                        <div class="form-group">
+                            <label for="number" class="control-label">Contact #</label>
+                            <input type="text" class="form-control" required id="user-number" name="@Html.NameFor(m=>m.contact)">
+                        </div>
+
+                    }
+
+
+                </div>
+            </form>
+            @* Order Information will be shown here *@
+
+
+            <div class="col-lg-12 col-md-12">
+                <div class="col-lg-6 col-md-6">
+                    <h4 class="modal-title text-center">Car Information</h4>
+                    <ul>
+                        <li>
+                            <div class="form-group">
+
+                                <label class="control-label">Car Make :</label>
+                                <span type="text" class="" id="carmake">@Model.carmake</span>
+
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="form-group">
+
+                                <label class="control-label">Car Model :</label>
+                                <span type="text" class="" id="carmake">@Model.carmodel</span>
+
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="form-group">
+
+                                <label class="control-label">Car Year :</label>
+                                <span type="text" class="" id="carmake">@Model.year</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+
+                                <label class="control-label">Car Millege</label>
+                                <span type="text" class="" id="carmake">@Model.millege</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <h4 class="modal-title text-center">Service Information</h4>
+                    <ul>
+                        <li>
+                            <div class="form-group">
+
+                                <label class="control-label">Location :</label>
+                                <span type="text" class="" id="carmake">@Model.address</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+
+                                <label class="control-label">Timing Slot :</label>
+                                <span type="text" class="" id="carmake">@Model.timings</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="form-group">
+
+                                <label class="control-label">Services You Select Are :</label>
+                                @foreach (var ser in Model.pricesofsubservices)
+                                {
+                                    <ul>
+                                        <li>
+                                            @ser.SubService.Name :
+                                            <span class="" id="carmake">PKR -@Math.Round(@ser.Price, 2)</span>
+                                        </li>
+                                    </ul>
+                                }
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-12 col-md-12">
+                <h4 class="modal-title text-center">Billing Information</h4>
+                
+
+                <div class="form-group">
+                    <label class="control-label">Service Charges of Services :</label>
+                    @foreach(var item in Model.servicechargers)
+                    {
+                        <ul>
+                            <li>@item.Service.Name :<span>@item.Service.Price-PKR </span></li>
+                        </ul>
+                        //Model.totalprice += @item.Service.Price;
+
+                        totalservicecharges += @item.Service.Price;
+                    }
+
+                </div>
+              
+
+                <p style="display:none">  @Model.totalprice+= totalservicecharges;</p>
+
+            
+
+
+               
+
+                <div class="form-group">
+
+                    <label class="control-label">Total Price :</label>
+                    <span type="text" class="">PKR - @Math.Round(Model.totalprice, 2)</span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <div class="modal-footer" style="border:none">
+            <button type="button" style="color:#fff;background-color:#be0014;" class="btn" onclick="UpdateOrder()">Confirm Order</button>
+        </div>
+    </div>
+</div>

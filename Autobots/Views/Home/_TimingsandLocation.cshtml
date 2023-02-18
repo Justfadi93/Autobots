@@ -1,0 +1,53 @@
+﻿@model Autobots.Entities.Models.ViewModels.AppointmentViewModel
+<style>
+    #pac-input {
+        color: #000000 !important;
+    }
+</style>
+
+<div class="appoinment_content_area">
+    <div class="appoinment_form">
+        <div class="information">
+            <div class="information_siral">3 of 3</div>
+            <div class="information_details">Contact Details</div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="information_column">
+                <h2>APPOINTMENT Avaialble Timeframe</h2>
+            </div>
+            @Html.DropDownListFor(m => m.timings, (SelectList)ViewBag.timeslots, "Select Time", new { @class = "select-input" })
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="information_column">
+                <h2>Enter Your Address </h2>
+            </div>
+            <input type="text" name="@Html.NameFor(m=>m.address)" id="pac-input" placeholder="Enter Here" />
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-12">
+        <div id="map"></div>
+        <div id="infowindow-content">
+            <img src="" width="16" height="16" id="place-icon">
+            <span id="place-name" class="title"></span><br>
+            <span id="place-address"></span>
+        </div>
+    </div>
+
+
+
+</div>
+@*</div>*@
+@*<div id="map"></div>*@
+
+
+
+
+
+
+
+

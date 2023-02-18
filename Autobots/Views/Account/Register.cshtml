@@ -1,0 +1,141 @@
+﻿@model Autobots.Models.RegisterViewModel
+@{
+    Layout = "~/Views/Shared/ManagerAccounts/_Accounts.cshtml";
+
+    ViewBag.Title = "Register";
+}
+<style>
+    .card-box {
+        background: rgba(208, 1, 23, 0.52);
+    }
+
+    .panel-heading h3 {
+        color: #fff;
+    }
+
+    .panel-heading .text-custom {
+        color: #260184;
+    }
+
+    .form-control {
+        background-color: rgba(255,255,255,.15);
+        color: #000;
+    }
+
+        .form-control:focus {
+            background-color: #930018;
+        }
+
+    .btn-red {
+        background-color: rgba(255, 255, 255, .15) !important;
+        border: 1px solid rgba(255,255,255,.15) !important;
+        color: #fff;
+    }
+
+        .btn-red:hover {
+            background-color: rgba(255, 255, 255, .15) !important;
+            border: 1px solid rgba(255,255,255,.15) !important;
+            color: #fff;
+        }
+
+    .checkbox-primary input[type="checkbox"]:checked + label::before {
+        background-color: #d60f0f;
+        border-color: #da1111;
+    }
+
+    .checkbox label::before {
+        border: 2px solid #f5f5f5;
+    }
+
+    .wrapper-page {
+        margin:2% auto;
+    }
+
+    .text-black {
+        color: #000;
+    }
+
+    input[type="email"]:-ms-input-placeholder {
+        color: black !important;
+    }
+</style>
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="wrapper-page">
+        @Html.ValidationSummary("Must Choose Password consist of 8 Characters  Should have 1 UpperCase 1 lowecase 1 Special Character and 1 number ", new { @class = "text-black" })
+        <div class="card-box">
+            <div class="panel-heading">
+                <h3 class="text-center"> Sign Up to <strong class="text-custom">AutoBots</strong> </h3>
+            </div>
+
+            <div class="panel-body">
+
+
+
+                <div class="form-group ">
+                    @* <label for="name" class="control-label"> First Name</label>*@
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" required="" placeholder="FirstName" name="@Html.NameFor(x=>x.FirstName)">
+                    </div>
+                </div>
+                @*<div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" required="" placeholder="LastName" name="@Html.NameFor(x=>x.LastName)">
+                        </div>
+                    </div>*@
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="email" required="" placeholder="Email " name="@Html.NameFor(x=>x.Email)">
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="password" required="" placeholder="Password" name="@Html.NameFor(x=>x.Password)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="password" required="" placeholder="Confirm Password" name="@Html.NameFor(x=>x.ConfirmPassword)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="checkbox checkbox-primary">
+                            <input id="checkbox-signup" type="checkbox" checked="checked">
+                            <label for="checkbox-signup" style="color:#fff">I accept <a href="#" style="color:#fff">Terms and Conditions</a></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group text-center m-t-40">
+                    <div class="col-xs-12">
+                        <button class="btn btn-red btn-block text-uppercase waves-effect waves-light" type="submit">
+                            Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <p style="color:#be0014;">
+                    Already have account?<a href="@Url.Action("Login")" class="text-primary m-l-5" style="color:#fff;"><b>Sign In</b></a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,334 @@
+﻿@using Autobots.Entities.Models.Defaults;
+
+@model  Autobots.Entities.Models.ViewModels.OrderViewModel
+
+@{
+    Layout = "~/Views/Shared/Dashboard/_DashboardLayout.cshtml";
+
+    ViewBag.Title = "ViewBooking";
+}
+<div class="PrintArea printableArea">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <!-- <div class="panel-heading">
+                    <h4>Invoice</h4>
+                </div> -->
+                <div class="panel-body">
+                    <div class="clearfix">
+                        <div class="pull-left">
+                            <h4 class="text-right"><img src="" width="50px;" alt="">Autobots (PVT).LTD</h4>
+
+                        </div>
+                        @*<div class="pull-right">
+                                <h4>
+                                    Invoice # <br>
+                                    <strong>2015-04-23654789</strong>
+                                </h4>
+                            </div>*@
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <h4>Personal Details </h4>
+                                <div class="m-t-30">
+                                    <p><strong>Name :</strong> @Model.Name</p>
+                                    <p style=""><strong>Email :</strong> @Model.email</p>
+
+                                    <p>
+                                        <strong>Address :</strong>     @Model.address
+
+                                    </p>
+                                    <p>
+                                        <abbr title="Phone">Phone: </abbr>@Model.contact
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Car Details </h4>
+                                <div class="m-t-30">
+                                    <p><strong>Car Make :</strong> @Model.Carmake</p>
+                                    <p><strong> Car Model :</strong> @Model.CarModel</p>
+                                    <p><strong> Car Year :</strong> @Model.year</p>
+                                    <p><strong> Car Millege :</strong> @Model.millage</p>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <h4>Order Details </h4>
+                                <div class="m-t-30">
+                                    <p><strong>Order Date & Time: </strong> @Model.orderdate</p>
+                                    <p class="m-t-10">
+                                        <strong>Order Status: </strong>
+                                        @if (Model.status == (int)BookingType.Pending)
+                                    {
+                                        <span class="label label-danger">Pending</span>
+
+                                    }
+                                    else if(Model.status == (int)BookingType.Complete)
+                                    {
+                                        <span class="label label-success">Processing</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span class="label label-info">Complete</span>
+
+                                    }
+
+                                    </p>
+                                    <p class="m-t-10"><strong>Time Slot : </strong> @Model.timingslot</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-h-50"></div>
+                    <div class="row">
+                        <h4>Price Details </h4>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table m-t-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>SubItem</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.pricesofsubservices)
+                                        {
+                                            <tr>
+                                                <td>@item.SubService.Service.Name</td>
+                                                <td>@item.SubService.Name</td>
+                                                @foreach (var price in item.SubService.Prices)
+                                                {
+                                                    if (price.SubServiceId == item.SubServiceId && price.ModelId == item.Order.ModelId)
+                                                    {
+                                                        <td>@price.Price</td>
+                                                    }
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="border-radius: 0px;">
+                        <div class="col-md-3 col-md-offset-9">
+                            <p class="text-right"><b>Sub-total:</b> @Model.totalprice -/Rs</p>
+                            @* <p class="text-right">Discout: 12.9%</p>*@
+                            @* <p class="text-right">VAT: 12.9%</p>*@
+                            <hr>
+                            <h3 class="text-right" id="totalprice">PKR @Model.totalprice</h3>
+                            <a href="#" class="btn btn-info waves-effect waves-light pull-right" onclick="" data-toggle="modal" data-target="#con-close-modal">Give Discount</a>
+
+
+
+                        </div>
+
+
+
+                    </div>
+                    <hr>
+                    <div class="hidden-print">
+                        <div class="pull-right">
+                            <a href="javascript:void(0)" class="btn btn-inverse waves-effect waves-light" id="printButton"><i class="fa fa-print"></i></a>
+                            @if (Model.status == (int)BookingType.Pending)
+                            {
+
+                                <a href="#" class="btn btn-info waves-effect waves-light" onclick="UpdateOrderProcessing(@Model.orderid)">Processing</a>
+                            }
+                            else if (Model.status == (int)BookingType.InProcessing)
+                            {
+                                <a href="#" class="btn btn-success waves-effect waves-light" onclick="UpdateOrder(@Model.orderid)">Completed</a>
+
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@* Discount Modal  *@
+<div id="con-close-modal" class="modal fade discountmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Discount Modal</h4>
+            </div>
+
+            <form id="discount-form">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Enter Discount Price (Rs)</label>
+                                <input type="text" class="form-control" id="price" placeholder="100.00">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-info waves-effect waves-light" onclick="Discount(@Model.orderid)">Save</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+
+
+
+@section scripts{
+    <script src="~/Content/Back/assets/js/jquery.PrintArea.js"></script>
+<script src="~/Content/Back/assets/plugins/notifyjs/js/notify.js"></script>
+<script src="~/Content/Back/assets/plugins/notifications/notify-metro.js"></script>
+
+    <script>
+        function UpdateOrderProcessing(id) {
+            // $.LoadingOverlay("show");
+            debugger;
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: '/Dashboard/UpdateOrdertoProcessing?id=' + id,
+
+                success: function (result) {
+                    if (result === true) {
+                        debugger;
+                        //  $.LoadingOverlay("hide");
+
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title:
+                                'Your Booking Status Has been Updated Successfully !!!',
+                            showConfirmButton: true,
+
+                        });
+                        window.location.href = '@Url.Action("ProcessingBookings","Dashboard")';
+                    }
+                },
+                error: function (request, status, error) {
+                    $.LoadingOverlay("hide");
+
+                    //Do Something on Failure
+                    alert("Booking Status not Changed please try again");
+                }
+
+
+            });
+
+        }
+
+        function UpdateOrder(id) {
+            // $.LoadingOverlay("show");
+            debugger;
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: '/Customer/UpdateOrder?id=' + id,
+
+                success: function (result) {
+                    if (result === true) {
+                        debugger;
+                        //  $.LoadingOverlay("hide");
+
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title:
+                                'Your Booking Status Has been Updated Successfully !!!',
+                            showConfirmButton: true,
+
+                        });
+                        window.location.href = '@Url.Action("ProcessingBookings","Dashboard")';
+                    }
+                },
+                error: function (request, status, error) {
+                    $.LoadingOverlay("hide");
+
+                    //Do Something on Failure
+                    alert("Booking Status not Changed please try again");
+                }
+
+
+            });
+
+        }
+
+    </script>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $("#printButton").click(function () {
+                var mode = 'iframe'; //popup
+                var close = mode == "popup";
+                var options = { mode: mode, popClose: close };
+                $("div.printableArea").printArea(options);
+            });
+        });
+
+
+    </script>
+
+    <script>
+        function Discount(id) {
+            //$(".discountmodal").modal('close');
+
+           // $.LoadingOverlay("show");
+            debugger;
+            var price = 0.00;
+            price = parseFloat($("#price").val());
+            var orderid = id;
+            @*totalprice = parseFloat(@Model.totalprice - price);
+            $("#totalprice").html("PKR-" + parseFloat(totalprice));*@
+
+            $.ajax({
+                cache: false,
+                type: 'GET',
+                url: '/Dashboard/Discount/?price='+price +'&orderid='+id,
+                success: function (result) {
+             //       $.LoadingOverlay("hide");
+                    if (result === true) {
+                        //         $.LoadingOverlay("hide");
+                        window.location.href = '@Url.Action("ViewBooking", "Dashboard",new { id =Model.orderid} )';
+                        $.Notification.notify('success', 'bottom right', 'Updated', 'Discount has been added successfully');
+
+                    }
+
+
+                },
+                error: function (request, status, error) {
+                    //Do Something on Failure
+                 //   $.LoadingOverlay("hide");
+                    $.Notification.notify('error', 'bottom right', 'Updated', 'Price is not updated please refresh page and try again');
+                }
+
+            });
+
+
+        }
+
+    </script>
+
+
+}

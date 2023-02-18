@@ -1,0 +1,53 @@
+﻿@model Autobots.Entities.Models.ViewModels.ComplainViewModel
+@{
+    Layout = "~/Views/Shared/Dashboard/_DashboardLayout.cshtml";
+
+    ViewBag.Title = "Compalin Box";
+
+}
+
+
+
+
+@using (Html.BeginForm("ComplainBox", "Customer", FormMethod.Post))
+            {
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
+                <h2 style="color:white;">Complaint Box </h2>
+                <p style="color:white;">You can send us your Suggestions or Complaints regrading our services, We would love to help you !</p>
+                <textarea id="" name="@Html.NameFor(x => x.complain)"   rows="20" cols="120"></textarea>
+
+            </div>
+            <button class="btn btn-default btn-md waves-effect waves-light m-b-30" type="submit"> Submit</button>
+
+        </div>
+    </div>
+}
+<!-- End row -->
+
+
+
+
+@section scripts{
+<script>
+        $(document).ready(function () {
+
+            debugger;
+            var complain = '@ViewBag.status';
+
+            if (complain == 'true') {
+                alert("Your Complaint Has been sent to AutoBots Support!");
+                swal({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Your Complaint Has been sent to AutoBots Support! Soon you will recieve a call from our side  ',
+                    showConfirmButton: false,
+                    timer: 7000
+                })
+
+            }
+        });
+</script>
+
+}

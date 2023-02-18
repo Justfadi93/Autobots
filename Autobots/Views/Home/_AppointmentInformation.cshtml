@@ -1,0 +1,156 @@
+﻿@model Autobots.Entities.Models.ViewModels.AppointmentViewModel
+@using Autobots.Entities.Models.DB
+
+@*<select multiple="multiple" size="50" style="display: none" ></select>*@
+<input type="hidden" id="SelectedServicesList" name="selectedsubservices" />
+<div class="appoinment_content_area">
+    <div class="information informatino_two">
+        <div class="information_siral">2 of 3</div>
+        <div class="information_details">Appointment Information</div>
+    </div>
+    <div class="tainer">
+        <section id="TabId0" class="tabs t-tabs col-md-10">
+            <ul class="nav nav-tabs fancyTabs" role="tablist">
+                @{
+                    var count = 0;
+                    var firstAdon = true;
+                }
+                @foreach (var item in (List<Service>)ViewBag.Service)
+                {
+                    var hasadon = (!item.IsAddOn && item.AdOns != null && item.AdOns.Count != 0);
+                    if (!item.IsAddOn)
+                    {
+
+                        <li class="tab fancyTab@(count == 0?" active":"")">
+                            <div class="arrow-down"><div class="arrow-down-inner"></div></div>
+                            <a id="@("tab" + item.Id)" href="@("#tabBody" + item.Id)" class="pad-less" onclick="ActiveAddOn(@item.Id,@(hasadon ? "true":"false"))" role="tab" aria-controls="@("tabBody" + item.Id)" aria-selected="true" data-toggle="tab" tabindex="@item.Id"><span class="@item.IconClass@(hasadon && firstAdon?" firstAdon":"")"></span><span class="hidden-xs">@item.Name</span></a>
+                            <div class="whiteBlock"></div>
+                        </li>
+                        count++;
+                        if (hasadon && firstAdon)
+                        {
+                            firstAdon = false;
+                        }
+                    }
+                }
+
+            </ul>
+
+            <div id="myTabContent" class="tab-content fancyTabContent" aria-live="polite">
+                @{
+                    count = 0;
+                }
+                @foreach (var item in (List<Service>)ViewBag.Service)
+                {
+                    if (!item.IsAddOn)
+                    {
+                        <div class="tab-pane  fade@(count == 0 ? " active in" : "")" id="@("tabBody" + item.Id)" role="tabpanel" aria-labelledby="@("tab" + item.Id)" aria-hidden="false" tabindex="@item.Id">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="fixed-table-container" style="padding-bottom: 0;">
+                                        <div class="fixed-table-body">
+                                            <table data-toggle="table" class="table table-hover" style="display: table;">
+                                                <tbody>
+                                                    @foreach (var ite in item.SubService.Where(x => x.IsActive))
+                                                    {
+
+                                                        var servicePrice = ite.Prices.FirstOrDefault(x => x.ModelId == (int)ViewBag.ModelId);
+                                                        if (servicePrice != null)
+                                                        {
+                                                            <tr id="@("SubRow-" + servicePrice.Id)">
+                                                                <td>@ite.Name</td>
+                                                                <td>
+                                                                    <b>
+                                                                        @servicePrice.Price - PKR
+                                                                    </b>
+                                                                </td>
+                                                                <td><button class="btn btn-block btn-rounded btn-danger" type="button" onclick="AddToCart('@item.Name','@ite.Name','@servicePrice.Id', @servicePrice.Price, false)"><span class="fa fa-shopping-cart"></span></button></td>
+                                                            </tr>
+                                                        }
+
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        count++;
+                    }
+                }
+            </div>
+        </section>
+        <section id="AddonSectionId" class="col-md-2">
+            @{
+                var adons = ((List<Service>)ViewBag.Service).Where(x => x.IsAddOn && x.IsActive.Equals(true)).GroupBy(x => x.ParentServiceId);
+            }
+
+            @foreach (var adon in adons)
+            {
+                <div id="@("adonDiv" + adon.Key)" class="adonDiv" style="display: none;">
+                    <section id="@("TabId" + adon.Key)" class="tabs t-tabs">
+                        <ul class="nav nav-tabs fancyTabs" role="tablist">
+                            @{
+                                count = 50;
+                            }
+                            @foreach (var item in adon)
+                            {
+                                <li class="tab fancyTab@(count == 50 ? " active" : "")" id="add-onlist">
+                                    <div class="arrow-down" style="border-top: 22px solid #020b4c;">
+                                        <div class="arrow-down-inner" style=""></div>
+                                    </div>
+                                    <a id="@("tabz" + item.Id)" href="@("#tabBody" + item.Id)" role="tab" aria-controls="@("tabBodyz" + item.Id)" aria-selected="true" data-toggle="tab" tabindex="item.Id"><span class="@item.IconClass" style="color:#fff"></span><span class="hidden-xs addonname">@item.Name</span></a>
+                                    <div class="whiteBlock"></div>
+                                </li>
+                                count++;
+                            }
+                        </ul>
+                        <div id="adonsTabBody" class="tab-content fancyTabContent" aria-live="polite">
+                            @{
+                                count = 50;
+                            }
+                            @foreach (var item in adon)
+                            {
+                                if (item.IsAddOn)
+                                {
+                                    <div class="tab-pane  fade@(count == 50 ? " active in" : "")" id="@("tabBodyz" + item.Id)" role="tabpanel" aria-labelledby="@("tabz" + item.Id)" aria-hidden="false" tabindex="item.Id">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="fixed-table-container" style="padding-bottom: 0;">
+                                                    <div class="fixed-table-body">
+                                                        <table data-toggle="table" class="table table-hover" style="display: table;">
+                                                            <tbody>
+                                                                @foreach (var ite in item.SubService.Where(x => x.IsActive))
+                                                                {
+                                                                    var servicePrice = ite.Prices.FirstOrDefault(x => x.ModelId == (int)ViewBag.ModelId);
+                                                                    if (servicePrice != null)
+                                                                    {
+                                                                        <tr id="@("SubRow-" + servicePrice.Id)">
+                                                                            <td>@ite.Name</td>
+                                                                            <td>
+                                                                                <b>
+                                                                                    @servicePrice.Price - PKR
+                                                                                </b>
+                                                                            </td>
+                                                                            <td><button class="btn btn-block btn-rounded btn-danger" type="button" onclick="AddToCart('@item.Name', '@ite.Name', '@servicePrice.Id', @servicePrice.Price, false)"><span class="fa fa-shopping-cart"></span></button></td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    count++;
+                                }
+                            }
+                        </div>
+                    </section>
+                </div>
+                                }
+        </section>
+    </div>
+</div>

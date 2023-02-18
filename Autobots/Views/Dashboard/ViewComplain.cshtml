@@ -1,0 +1,18 @@
+﻿@model  Autobots.Entities.Models.DB.Complaint
+@{
+    Layout = "~/Views/Shared/Dashboard/_DashboardLayout.cshtml";
+    ViewBag.Title = "View Compliants ";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h2 style="color:white;">Complaint/Suggestion Date-Time </h2> <span> @Model.CreatedAt </span>
+          
+            <h2 style="color:white;">Message</h2><br />
+            <p >@Model.complain </p>
+        </div>
+        <button class="btn btn-primary waves-effect waves-light btn-lg" onclick="location.href = '@Url.Action("Complains","Dashboard")';"  >Back to Complains</button>
+    </div>
+</div>

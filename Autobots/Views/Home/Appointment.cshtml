@@ -1,0 +1,973 @@
+﻿@model Autobots.Entities.Models.ViewModels.AppointmentViewModel
+@{
+    Layout = "~/Views/Shared/_FrontLayout.cshtml";
+    ViewBag.Title = "Appointment";
+}
+<style>
+    #add-onlist {
+        background-color: #020b4c;
+    }
+
+    .addonname {
+        color: #fff;
+    }
+
+    .pad-less {
+        padding: 14px 0px !important;
+    }
+
+    .table-hover > tbody > tr:hover > td {
+        background-color: #be0014 !important;
+    }
+
+    .information_details {
+        background: rgb(2, 11, 76);
+        color: #f5f5f5;
+    }
+
+
+    #infowindow-content .title {
+        font-weight: bold;
+    }
+
+    #infowindow-content {
+        display: none;
+    }
+
+    #map #infowindow-content {
+        display: inline;
+    }
+
+    #map {
+        height: 250px;
+        width: 100%;
+    }
+
+    #title {
+        color: #fff;
+        /*background-color: #4d90fe;*/
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+    }
+
+
+    .page {
+        display: none;
+    }
+
+    .active {
+        display: inherit;
+    }
+</style>
+
+<!-- Cart area start -->
+<style>
+    /** flyout menu **/
+    .cart-tab {
+        width: 22em;
+        position: fixed;
+        top: 5em;
+        z-index: 9999;
+        background: #fff;
+        right: -22em;
+        -webkit-transition: right ease .5s;
+        -moz-transition: right ease .5s;
+        -o-transition: right ease .5s;
+        transition: right ease .5s;
+    }
+
+        .cart-tab a.cart-link {
+            position: absolute;
+            top: 0;
+            /*left: -9em;
+        width: 8.6em;*/
+            left: -9em;
+            width: 8.3em;
+            z-index: -1;
+            display: block;
+            background: #be0014;
+            padding: 1.8em;
+            text-decoration: none;
+            -webkit-transition: left ease .5s;
+            -moz-transition: left ease .5s;
+            -o-transition: left ease .5s;
+            transition: left ease .5s;
+            -webkit-border-top-left-radius: 3px;
+            -webkit-border-bottom-left-radius: 3px;
+            -moz-border-radius-topleft: 3px;
+            -moz-border-radius-bottomleft: 3px;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+            .cart-tab a.cart-link:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                right: -10px;
+                width: 10px;
+                height: 100%;
+                /*background: #fff;*/
+                background: #be0014;
+            }
+
+            .cart-tab a.cart-link .amount {
+                display: block;
+                color: #fff;
+                font-size: 1.2em;
+                line-height: 1.7em;
+                font-weight: bold;
+                margin-bottom: 8px;
+            }
+
+            .cart-tab a.cart-link .contents {
+                display: block;
+                color: #fff;
+                font-size: 1em;
+            }
+
+    .cart-items {
+        display: block;
+        margin-bottom: 25px;
+    }
+
+        .cart-items ul {
+            display: block;
+            list-style: none;
+        }
+
+            .cart-items ul li {
+                display: block;
+                margin-bottom: 8px;
+                padding-bottom: 10px;
+                cursor: pointer;
+                border-bottom: 1px dotted #888;
+            }
+
+                .cart-items ul li .item-price, .cart-items ul li .quantity {
+                    display: block;
+                    margin-bottom: 2px;
+                    font-size: 1.1em;
+                }
+
+    .productimg {
+        display: block;
+        float: left;
+        margin-right: 8px;
+    }
+
+    .cart-tab .cart {
+        padding: 0.5em;
+        margin: 0;
+    }
+
+        .cart-tab .cart .checkout {
+            font-size: 1.2em;
+            padding: 4px 11px;
+            border: 1px solid #467fc5;
+            color: #467fc5;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+        }
+
+            .cart-tab .cart .checkout:hover {
+                background: #467fc5;
+                color: #fff;
+            }
+
+    .cart-tab a.cart-link, .cart-tab .cart {
+        -webkit-box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+        -moz-box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+    }
+
+    .cart-tab:hover {
+        right: 0;
+    }
+
+    .cart-tab .cart {
+        -webkit-border-bottom-left-radius: 3px;
+        -webkit-border-bottom-right-radius: 3px;
+        -moz-border-radius-bottomleft: 3px;
+        -moz-border-radius-bottomright: 3px;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    .service-name {
+        font-size: 16px;
+        color: #be0014;
+        font-weight: 400;
+    }
+
+    .sub-service {
+        color: #094983;
+    }
+
+    .table tbody > tr {
+    }
+
+        .table tbody > tr > td {
+            border-color: white;
+            vertical-align: middle;
+            font-size: 14px;
+        }
+
+    /*.table tbody > tr > td:first-child {
+        border-radius: 10px 0 0 10px;
+    }
+    .table tbody > tr > td:last-child {
+        border-radius: 0 10px 10px 0;
+    }*/
+
+    .btn:focus, :focus {
+        outline: none;
+    }
+
+    .table-hover > tbody > tr:hover > td {
+        background-color: #d9534f;
+        color: white;
+    }
+
+        .table-hover > tbody > tr:hover > td > button {
+            background-color: white;
+            color: #d9534f;
+        }
+</style>
+
+<link href="~/Content/Front/tabs/css/style.css" rel="stylesheet" />
+@*<link href="~/Content/Back/assets/plugins/custombox/css/custombox.css" rel="stylesheet" />*@
+
+
+<section>
+    <div id="MainCart" class="cart-tab visible" style="display: none;">
+        <a href="#" title="View your shopping cart" class="cart-link" style="padding-top:0px; padding-left:11px; text-align:center">
+            <h2 style="color: #fff;font-weight: 500;">Total Bill</h2>
+            <span class="amount">PKR <span id="TotalPrice">00.00</span></span>
+            <span class="contents"><span id="TotalItemCount"></span></span>
+        </a>
+        <div class="cart">
+            <h2>Bill Details</h2>
+            <div class="cart-items">
+                <ul id="CartItemList"></ul>
+            </div>
+            <div class="cart-items">
+                <ul>
+                    <li>
+                        Subtotal   <span class="pull-right">PKR - <span id="Subtotal">00.00</span> </span>
+                    </li>
+                    <li>
+                        Service Charges  will vary with Services <span class="pull-right"><span id="ServiceCharges"></span> </span>
+                    </li>
+                    @*<li>
+                            Tax (7%)   <span class="pull-right">PKR - <span id="TaxCharges">00.00</span> </span>
+                        </li>*@
+                    <li>
+                        Total Bill   <span class="pull-right">PKR - <span id="Total">00.00</span> </span>
+                    </li>
+                </ul>
+            </div>
+            @*<a href="#" class="checkout" style="display:none">Go To Checkout &rarr;</a>*@
+        </div>
+    </div>
+</section>
+
+<!-- Cart area start -->
+<!-- page heading area start -->
+<section id="blog-banner" style="height: 200px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="appointment-page text-center" style="padding-top: 5%;">
+                    <h2>BOOK A APPOINTMENT</h2>
+                    @* <h3>Home / Blog</h3>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page heading area end -->
+<a href="" name="startappointment" style=""></a>
+
+
+@using (Html.BeginForm("Appointment", "Home", FormMethod.Post, new { Id = "appointment-form" }))
+{
+
+    <!-- appoinment page details area start -->
+    <section id="appoinment_content">
+        <div class="container">
+            <div class="row">
+                <div class="appoint text-center">
+                    @* <p>Keeping a well-maintained vehicle is paramount to your safety. That is why our team of nearly 500 professional technicians are ready to make your vehicle safe and </p>*@
+
+                </div>
+
+                <div class="appoinment_content_area page active" data-step="0">
+                    <div class="information">
+                        <div class="information_siral">1 of 3</div>
+                        <div class="information_details">Vehicle Information</div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="information_column">
+                            <h2>Vehicle MAKE</h2>
+                        </div>
+                        @Html.DropDownListFor(m => m.make_id, (SelectList)ViewBag.makes, "Select Make", new { Id = "makeid", @class = "select-input required" })
+                        @Html.ValidationMessageFor(m => m.make_id, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="information_column">
+                            <h2>VEHICLE MODEL</h2>
+                        </div>
+                        <select id="model-list" name="@Html.NameFor(m=>m.model_id)" class="select-input">
+                            <option selected disabled="disabled">
+                                Select Make First
+                            </option>
+                        </select>
+                        @*@Html.DropDownListFor(m => m.model_id, (SelectList)ViewBag.models, "Select Model", new { Id="model-id" ,@class = "select-input" })*@
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="information_column">
+                            <h2>Vehicle Year</h2>
+                        </div>
+                        <div class="vehicle-year">
+                            <div class="thm-spinner" id="spinner" data-min-value="1999" data-max-value="2017" data-default-value="2010">
+                                @*<input type="hidden" name="@Html.NameFor(m=>m.year)" id="year" />*@
+                                @Html.HiddenFor(m => m.year, new { Id = "year-field" })
+                                <!-- loaded content via jquery ui -->
+                            </div>
+                            <input type="text" readonly class="vehicle-year">
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6 col-md-6 ">
+                        <div class="information_column">
+                            <h2>VEHICLE MILEAGE</h2>
+                        </div>
+                        <fieldset>
+                            @Html.TextBoxFor(m => m.millage, new { Id = "millege" })
+                        </fieldset>
+                        @*<input type="text" placeholder="VEHICLE MILEAGE">*@
+                    </div>
+                </div>
+                <div class="page" id="service-selection" data-step="1">
+
+
+                </div>
+                <div class="page" id="timeselection">
+                    @{Html.RenderAction("TimingsandLocation");}
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right" style="padding-bottom: 10px;
+    padding-top: 10px;">
+                <div class="packege_button">
+                    <button class="btn-info hvr-bounce-to-right btn-packege" type="button" id="prev">
+                        Previous
+                    </button>
+                    <button class="btn-info hvr-bounce-to-right btn-packege" type="button" id="next">
+                        NEXT
+                    </button>
+                    <button class="btn-info hvr-bounce-to-right btn-packege"
+                            style="display:none;" type="button" id="finish" onclick="saveorder()">
+                        FINISH
+                    </button>
+                    @*  data-target="#myModal" data-toggle="modal"*@
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- appoinment page details area end -->
+                        }
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+
+
+
+
+
+
+
+
+@section pagespecific
+{
+    <script src="~/Content/Back/assets/plugins/parsleyjs/parsley.min.js"></script>
+    <script src="~/Content/Front/tabs/js/index.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.5.4/src/loadingoverlay.min.js"></script>
+
+    <script src="~/Scripts/Plugins/jquery-validate/jquery.validate.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#model-form').parsley();
+        });
+
+
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+
+
+
+
+
+
+            var $registerForm = $("#appointment-form").validate({
+                ignore: ":not(:visible)",
+                // Rules for form validation
+                rules: {
+                    make_id: {
+                        required: true
+                    },
+                    model_list: {
+                        required: true
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    millage: {
+                        required: true,
+                        digits: true
+                    }
+                },
+
+                // Messages for form validation
+                messages: {
+                    make_id: {
+                        required: 'Please enter a Username'
+                    },
+                    model_id: {
+                        required: 'Please enter a Username'
+                    },
+                    Email: {
+                        required: 'Please enter your email address',
+                        email: 'Please enter a VALID email address'
+                    },
+                    millage: {
+                        required: 'Please enter your car millege ',
+                        digits: 'Digits only please'
+                    }
+                },
+                // Do not change code below
+                errorPlacement: function (error, element) {
+                    //error.insertAfter(element.parent());
+                    if (element.attr("type") == "checkbox")
+                    { error.insertAfter(element.parent().siblings().last()); }
+                    else if (element.is("select")) {
+                        error.insertAfter(element.next("a.ui-selectmenu"));
+                    }
+                    else error.insertAfter(element.parent());
+                }
+            });
+        });
+
+
+
+    </script>
+
+
+
+    <script>
+        function saveorder() {
+            $.LoadingOverlay("show");
+
+            var form = $("#appointment-form");
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: '/Home/Appointment/',
+                data: form.serialize(),
+                success: function (result) {
+
+                    $("#myModal").html(result);
+
+                    $('#myModal').modal('show');
+
+
+                    $.validator.addMethod("PhoneReg",
+                        function (value) {
+                            return /^(\+923[0-9]{9})$/.test(value)
+                                ||
+                                /^(03[0-9]{9})$/.test(value)
+                                ||
+                                /^(00923[0-9]{9})$/.test(value);
+                        });
+
+                    var modalform = $("#model-form").validate({
+
+                        ignore: ":not(:visible)",
+                        // Rules for form validation
+                        rules: {
+                            Name: {
+                                required: true
+                            },
+                            email: {
+                                required: true,
+                                email: true
+                            },
+                            contact: {
+                                required: true,
+                                PhoneReg: true
+                            }
+                        },
+
+                        // Messages for form validation
+                        messages: {
+                            Name: {
+                                required: 'Please enter a Username'
+                            },
+                            email: {
+                                required: 'Please enter your email address',
+                                email: 'Please enter a VALID email address'
+                            },
+                            contact: {
+                                required: 'Please enter a phone number',
+                                PhoneReg: 'Please enter a valid phone number'
+                            }
+                        },
+                        // Do not change code below
+                        errorPlacement: function (error, element) {
+                            //error.insertAfter(element.parent());
+                            if (element.attr("type") == "checkbox")
+                            { error.insertAfter(element.parent().siblings().last()); }
+                            else if (element.is("select")) {
+                                error.insertAfter(element.next("a.ui-selectmenu"));
+                            }
+                            else error.insertAfter(element.parent());
+                        }
+                    });
+
+
+
+                    $.LoadingOverlay("hide");
+
+                },
+                error: function (request, status, error) {
+                    //Do Something on Failure
+                    $.LoadingOverlay("hide");
+                    alert("service fail try again");
+
+                }
+
+            });
+        }
+
+        function UpdateOrder() {
+            $.LoadingOverlay("show");
+            debugger;
+
+            if ($('#model-form').valid()) {
+                $.ajax({
+                    cache: false,
+                    type: 'POST',
+                    url: '/Home/UpdateOrder',
+                    data: $("#model-form").serialize(),
+                    success: function (result) {
+                        if (result === true) {
+                            $.LoadingOverlay("hide");
+                            window.location.href = '@Url.Action("Index", "Home", "result")';
+                            swal({
+                                position: 'center',
+                                type: 'success',
+                                title: 'Your booking has been sent to AutoBots Support! Our team Will be at your Place on your Provided Time SLot',
+                                showConfirmButton: true,
+                                timer: 24000
+                            });
+                        }
+                    },
+                    error: function (request, status, error) {
+                        $.LoadingOverlay("hide");
+                        //Do Something on Failure
+                        alert("Server is Busy For Some reason Please try again !");
+                    }
+                });
+            } else {
+                $.LoadingOverlay("hide");
+                alert("Please Enter valid Data in Fields");
+
+            }
+        }
+
+    </script>
+
+
+    <script>
+        // This example requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'),
+                {
+                    center: { lat: 31.4704, lng: 74.2708 },
+                    zoom: 13
+                });
+            // var card = document.getElementById('pac-card');
+            var input = document.getElementById('pac-input');
+            // var types = document.getElementById('type-selector');
+            // var strictBounds = document.getElementById('strict-bounds-selector');
+
+            // map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+
+            var autocomplete = new google.maps.places.Autocomplete(input);
+
+            // Bind the map's bounds (viewport) property to the autocomplete object,
+            // so that the autocomplete requests use the current map bounds for the
+            // bounds option in the request.
+            autocomplete.bindTo('bounds', map);
+
+            var infowindow = new google.maps.InfoWindow();
+            var infowindowContent = document.getElementById('infowindow-content');
+            infowindow.setContent(infowindowContent);
+            var marker = new google.maps.Marker({
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29)
+            });
+
+            autocomplete.addListener('place_changed',
+                function () {
+                    infowindow.close();
+                    marker.setVisible(false);
+                    var place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        // User entered the name of a Place that was not suggested and
+                        // pressed the Enter key, or the Place Details request failed.
+                        window.alert("No details available for input: '" + place.name + "'");
+                        return;
+                    }
+
+                    // If the place has a geometry, then present it on a map.
+                    if (place.geometry.viewport) {
+                        map.fitBounds(place.geometry.viewport);
+                    } else {
+                        map.setCenter(place.geometry.location);
+                        map.setZoom(17); // Why 17? Because it looks good.
+                    }
+                    marker.setPosition(place.geometry.location);
+                    marker.setVisible(true);
+
+                    var address = '';
+                    if (place.address_components) {
+                        address = [
+                            (place.address_components[0] && place.address_components[0].short_name || ''),
+                            (place.address_components[1] && place.address_components[1].short_name || ''),
+                            (place.address_components[2] && place.address_components[2].short_name || '')
+                        ].join(' ');
+                    }
+
+                    infowindowContent.children['place-icon'].src = place.icon;
+                    infowindowContent.children['place-name'].textContent = place.name;
+                    infowindowContent.children['place-address'].textContent = address;
+                    infowindow.open(map, marker);
+                });
+
+            // Sets a listener on a radio button to change the filter type on Places
+            // Autocomplete.
+            // function setupClickListener(id, types) {
+            //   var radioButton = document.getElementById(id);
+            //   radioButton.addEventListener('click', function() {
+            //     autocomplete.setTypes(types);
+            //   });
+            // }
+
+            // setupClickListener('changetype-all', []);
+            // setupClickListener('changetype-address', ['address']);
+            // setupClickListener('changetype-establishment', ['establishment']);
+            // setupClickListener('changetype-geocode', ['geocode']);
+
+            // document.getElementById('use-strict-bounds')
+            //     .addEventListener('click', function() {
+            //       console.log('Checkbox clicked! New state=' + this.checked);
+            //       autocomplete.setOptions({strictBounds: this.checked});
+            //     });
+        }
+
+        //End of init() function
+        //$("#makeid").on("selectmenufocus", function (event, ui) {
+        //    debugger;
+        //    var themeClass = $("#makeid").selectmenu("option", "classes.ui-selectmenu-menu");
+
+
+        //});
+
+
+        $('#makeid').on('selectmenuchange',
+            function (e, ui) {
+
+                $.LoadingOverlay("show");
+                debugger;
+                var makeId = ui.item.value;
+                $.ajax({
+                    url: '/Home/_DropDown?Id=' + makeId,
+                    type: 'GET',
+                    cache: false,
+                    success: function (response) {
+                        //load  partial view to respective block
+                        debugger;
+                        $("#model-list").html("<option>Select Model</option>" + response);
+                        $("#model-list").selectmenu("destroy").selectmenu({ style: "dropdown" });
+                        $.LoadingOverlay("hide");
+
+                    },
+                    error: function () {
+                        alert("input missing");
+                        $.LoadingOverlay("hide");
+
+                    }
+                });
+
+            });
+
+        $('#model-list').on('selectmenuchange',
+            function (e, ui) {
+                debugger;
+                $.LoadingOverlay("show");
+                var modelid = ui.item.value;
+                $.ajax({
+                    url: '/Home/ServiceSelection?id=' + modelid,
+                    type: 'GET',
+                    cache: false,
+                    success: function (response) {
+                        debugger;
+                        //load timing partial view to respective block
+                        $("#service-selection").html(response);
+                        tabfunc();
+                        $('.firstAdon').click();
+                        $.LoadingOverlay("hide");
+
+                    },
+                    error: function () {
+                        $.LoadingOverlay("hide");
+
+                        alert("input missing");
+                    }
+                });
+
+            });
+
+
+        $(document).ready(function () {
+
+
+            var activesections = $(".page.active").index();
+            if (activesections === 1) {
+                $("#prev").hide('fast');
+                $("#finish").hide('fast');
+            }
+        });
+
+
+        $("#spinner").slider({
+            change: function (event, ui) {
+                $("#year-field").val(ui.value);
+            }
+        });
+
+        $("#prev").on("click",
+            function () {
+                var activesections = $(".page.active").index();
+                if (activesections == 2) {
+
+                    $("#prev").hide('fast');
+                } else {
+                    $(".checkout").hide('fast');
+                    $("#finish").hide('fast');
+
+                }
+
+                if ($(".page.active").index() > 1) {
+                    $("#next").show('fast');
+                    $(".page.active").removeClass("active").prev().addClass("active");
+                }
+            });
+        $("#next").on("click",
+            function () {
+                $.LoadingOverlay("show", {
+                    image: "",
+                    fontawesome: "fa fa-spinner fa-spin"
+                });
+                var sectiontotal = $(".page").length - 1;
+
+
+
+
+                var activesections = $(".page.active").index();
+                if (activesections === 2) {
+                    $("#next").hide('fast');
+                    $(".checkout").show('fast');
+                    $("#finish").show('fast');
+                    initMap();
+                }
+
+                if ($("#appointment-form").valid()) {
+                    $(function () {
+                        debugger;
+                        $("#appointment-form").validate(
+                   {
+                       rules:
+                       {
+                           item:
+                           {
+                               required: true
+                           }
+                       }
+                   });
+                    });
+
+
+
+                    if ($(".page.active").index() <= $(".page").length - 1) {
+                        debugger;
+
+                        $("#prev").show('fast');
+
+                        $(".page.active").removeClass("active").next().addClass("active");
+                        $.LoadingOverlay("hide");
+                    }
+                } else {
+                    alert("Invalid! please try again and fill all fields");
+                    $.LoadingOverlay("hide");
+
+                }
+
+
+            });
+
+
+    </script>
+
+    <script>
+
+        function ActiveAddOn(id, state) {
+            debugger;
+            $('.adonDiv').hide();
+            if (state) {
+                $('#adonDiv' + id).show();
+            }
+        }
+
+
+    </script>
+
+
+
+    <script>
+        var selectedValues = [];
+
+        function AddToCart(serviceName, subServiceName, subServiceId, price, isAdon) {
+
+            //alert(serviceName + "  " + subServiceName + "  " + price + "  " + isAdon);
+            if (contains.call(selectedValues, subServiceId)) {
+                alert('Service already exsist');
+            } else {
+                $('#MainCart').show();
+                $("#SubRow-" + subServiceId).hide();
+
+                selectedValues.push(subServiceId);
+                $('#SelectedServicesList').val(JSON.stringify(selectedValues));
+                document.getElementById('Subtotal').innerHTML =
+                    parseFloat(document.getElementById('Subtotal').innerHTML) + price;
+                //document.getElementById('TaxCharges').innerHTML =
+                //    Math.ceil(parseFloat(document.getElementById('Subtotal').innerHTML) * 0.07);
+                document.getElementById('TotalPrice').innerHTML =
+                    parseFloat(document.getElementById('Subtotal').innerHTML);
+                //parseFloat(document.getElementById('TaxCharges').innerHTML)
+                document.getElementById('Total').innerHTML = document.getElementById('TotalPrice').innerHTML;
+                document.getElementById('TotalItemCount').innerHTML = selectedValues.length + ' item';
+                var newItem = '<li id="CartItem-' +
+                    subServiceId +
+                    '" class="clearfix">' +
+                    '<span class="service-name"> ' +
+                    serviceName +
+                    ' - ' +
+                    '<span class="sub-service"> ' +
+                    subServiceName +
+                    ' </span>' +
+                    ' </span>' +
+                    '<span class="fa fa-times pull-right" onclick="RemoveFromCart(' +
+                    subServiceId +
+                    ',' +
+                    price +
+                    ')"></span>' +
+                    '<span class="item-price">PKR - ' +
+                    price +
+                    '</span>' +
+                    '</li>';
+                document.getElementById('CartItemList').innerHTML += newItem;
+            }
+        }
+
+        function RemoveFromCart(id, price) {
+            var element = document.getElementById("CartItem-" + id);
+            element.parentNode.removeChild(element);
+            $("#SubRow-" + id).show();
+
+            var index = selectedValues.indexOf("" + id);
+            debugger;
+            if (index > -1) {
+                selectedValues.splice(index, 1);
+                $('#SelectedServicesList').val(JSON.stringify(selectedValues));
+                document.getElementById('Subtotal').innerHTML =
+                    parseFloat(document.getElementById('Subtotal').innerHTML) - price;
+                //document.getElementById('TaxCharges').innerHTML =
+                //    Math.ceil(parseFloat(document.getElementById('Subtotal').innerHTML) * 0.07);
+                document.getElementById('TotalPrice').innerHTML =
+                    parseFloat(document.getElementById('Subtotal').innerHTML);
+                document.getElementById('Total').innerHTML = document.getElementById('TotalPrice').innerHTML;
+                document.getElementById('TotalItemCount').innerHTML = selectedValues.length + ' item';
+            }
+        }
+
+
+        var contains = function (needle) {
+            // Per spec, the way to identify NaN is that it is not equal to itself
+            var findNaN = needle !== needle;
+            var indexOf;
+
+            if (!findNaN && typeof Array.prototype.indexOf === 'function') {
+                indexOf = Array.prototype.indexOf;
+            } else {
+                indexOf = function (needle) {
+                    var i = -1, index = -1;
+
+                    for (i = 0; i < this.length; i++) {
+                        var item = this[i];
+
+                        if ((findNaN && item !== item) || item === needle) {
+                            index = i;
+                            break;
+                        }
+                    }
+
+                    return index;
+                };
+            }
+
+            return indexOf.call(this, needle) > -1;
+        };
+    </script>
+
+
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCof1-hWimxjC512PWRrR8A7mFc5IaNF3M&libraries=places"></script>*@
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCof1-hWimxjC512PWRrR8A7mFc5IaNF3M&libraries=places"></script>
+    @*&callback=initMap*@
+}
+
+

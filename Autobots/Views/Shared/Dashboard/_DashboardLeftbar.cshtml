@@ -1,0 +1,167 @@
+﻿@using Autobots.BLL.Manager;
+
+@using Microsoft.AspNet.Identity;
+
+@{
+    string Role = "";
+    if (User.IsInRole("Admin"))
+    {
+        Role = "Admin";
+    }
+    else if (User.IsInRole("Customer"))
+    {
+        Role = "Customer";
+    }
+    else if (User.IsInRole("CustomUser"))
+    {
+
+        Role = "CustomUser";
+    }
+}
+
+@{
+    
+    var user_id = User.Identity.GetUserId();
+    CustomerManager customermanager = new CustomerManager();
+    var pendingbookingcount = customermanager.GetAllPendingBookingsById(user_id).Count();
+    var completedbookingcount = customermanager.GetAllCompleteBookingsById(user_id).Count();
+    var allpendingbookings = customermanager.GetAllPendingBookings().Count();
+    var allcompletebookings = customermanager.GetAllCompleteBookings().Count();
+    var allprocessingbookings = customermanager.GetAllProcessingBookings().Count();
+
+}
+
+
+
+<!-- ========== Left Sidebar Start ========== -->
+
+<div class="left side-menu">
+    <div class="sidebar-inner slimscrollleft">
+        <div class="user-details">
+            @*<div class="pull-left">
+                    <img src="~/Content/Back/assets/images/avatar-1.jpg" alt="" class="thumb-md img-circle">
+                </div>
+                <div class="user-info">
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">John Doe <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile<div class="ripple-wrapper"></div></a></li>
+                            <li><a href="javascript:void(0)"><i class="md md-settings-power"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                    <p class="text-muted m-0">Administrator</p>
+                </div>*@
+        </div>
+        <!--- Divider -->
+        <div id="sidebar-menu">
+            <ul>
+
+                <li class="text-muted menu-title">Navigation</li>
+                @{
+                    switch (Role)
+                    {
+                        case "Admin":
+                            <li class="has_sub">
+                                <a href="/Dashboard/Index" class="waves-effect"><i class="ti-home"></i> <span> Dashboard </span> </a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="ti-car"></i> <span> Car Options </span> <span class="menu-arrow"></span> </a>
+                                <ul class="list-unstyled">
+                                    <li><a href="/Dashboard/CarMake_Add">Car Make</a></li>
+                                    <li><a href="/Dashboard/CarModel_Add">Car Model</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="/Dashboard/PriceChart" class="waves-effect"><i class="ti-notepad"></i><span> PriceChart </span></a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="ti-car"></i><span> Components </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="/Dashboard/Services">Services</a></li>
+                                    <li><a href="/Dashboard/SubService">SubServices</a></li>
+                                    <li><a href="/Dashboard/TimeSlot">Timing Slots</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="/Dashboard/CustomersInfo" class="waves-effect"><i class="ti-light-bulb"></i><span> All Customers Info </span></a>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="ti-shopping-cart"></i> <span> Bookings </span> <span class="menu-arrow"></span> </a>
+                                <ul class="list-unstyled">
+                                    <li><a href="/Dashboard/PendingBookings">Pending Bookings <span class="label label-primary pull-right">@allpendingbookings</span></a></li>
+                                    <li><a href="/Dashboard/ProcessingBookings">Processing Bookings <span class="label label-info pull-right">@allprocessingbookings</span></a></li>
+
+                                    <li><a href="/Dashboard/CompletedBookings">Completed Bookings <span class="label label-success pull-right">@allcompletebookings</span></a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="/Dashboard/Complains" class="waves-effect"><i class="ti-alert"></i><span> Complaints </span></a>
+
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="/Dashboard/AddNewUser" class="waves-effect"><i class="ti-light-bulb"></i><span> Add User </span></a>
+
+                            </li>
+
+
+                            break;
+
+                        case "Customer":
+
+                            <li class="has_sub">
+                                <a href="/Customer/Index" class="waves-effect"><i class="ti-home"></i> <span> Dashboard </span> </a>
+                            </li>
+
+                            @*<li class="has_sub">
+                                <a href="/Customer/Cars" class="waves-effect"><i class="ti-car"></i><span> Cars </span></a>
+
+                            </li>*@
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="ti-shopping-cart"></i> <span> Bookings </span> <span class="menu-arrow"></span> </a>
+                                <ul class="list-unstyled">
+                                    <li><a href="/Customer/PendingBookings">Pending <span class="label label-primary pull-right">@pendingbookingcount</span> </a></li>
+                                    <li><a href="/Customer/CompletedBookings">Completed <span class="label label-success pull-right">@completedbookingcount</span> </a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="/Customer/ComplainBox" class="waves-effect"><i class="ti-alert"></i><span> Complaints Box </span></a>
+
+                            </li>
+                            <li class="has_sub">
+                                <a href="/Customer/Loyalitypoints" class="waves-effect"><i class="ti-light-bulb"></i><span> Loyalty Points </span></a>
+
+                            </li>
+
+                            break;
+
+                        case "CustomUser":
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="ti-shopping-cart"></i> <span> Bookings </span> <span class="menu-arrow"></span> </a>
+                                <ul class="list-unstyled">
+                                    <li><a href="/Dashboard/PendingBookings">Pending Bookings <span class="label label-primary pull-right">@allpendingbookings</span></a></li>
+                                    <li><a href="/Dashboard/ProcessingBookings">Processing Bookings <span class="label label-info pull-right">@allprocessingbookings</span></a></li>
+
+                                    <li><a href="/Dashboard/CompletedBookings">Completed Bookings <span class="label label-success pull-right">@allcompletebookings</span></a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="/Dashboard/Complains" class="waves-effect"><i class="ti-alert"></i><span> Complaints </span></a>
+
+                            </li>
+
+                            break;
+
+
+
+
+                    }
+                }
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- Left Sidebar End -->

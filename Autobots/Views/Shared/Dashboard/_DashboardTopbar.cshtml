@@ -1,0 +1,86 @@
+﻿@using Autobots.BLL.Manager
+@using Microsoft.AspNet.Identity;
+
+@{
+
+    AdminDashboardManager adminmanager = new AdminDashboardManager();
+
+    var userid = User.Identity.GetUserId();
+    var user = adminmanager.Getuserbyuserid(userid);
+
+    var username = user.FirstName;
+
+ }
+
+
+  
+
+
+
+<!-- Top Bar Start -->
+<div class="topbar">
+
+    <!-- LOGO -->
+    <div class="topbar-left">
+        <div class="text-center">
+            <a href="~/Home/Index" class="logo"><span>Aut<i class="md md-album"></i>B<i class="md md-album"></i>Ts</span></a>
+            <!-- Image Logo here -->
+            <!--<a href="index.html" class="logo">-->
+            <!--<i class="icon-c-logo"> <img src="assets/images/logo_sm.png" height="42"/> </i>-->
+            <!--<span><img src="assets/images/logo_light.png" height="20"/></span>-->
+            <!--</a>-->
+        </div>
+    </div>
+
+    <!-- Button mobile view to collapse sidebar menu -->
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="">
+                <div class="pull-left">
+                    <button class="button-menu-mobile open-left waves-effect waves-light">
+                        <i class="md md-menu"></i>
+                    </button>
+                    <span class="clearfix"></span>
+                </div>
+                <ul class="nav navbar-nav hidden-xs">
+                    <li class="ms-hover"><a href="~/Home/Appointment#startappointment" class="waves-effect waves-light">Take Appointment</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right pull-right">
+                    <li class="hidden-xs">
+                        <a href="#" id="btn-fullscreen" class="waves-effect waves-light"><i class="icon-size-fullscreen"></i></a>
+                    </li>
+                   
+                    <li class="dropdown top-menu-item-xs">
+                        @if (User.IsInRole("CustomUser"))
+                        {
+                            <a href="" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">Welcome @user.UserName &nbsp;<img src="~/Content/Back/assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle"> </a>
+
+                        }
+                        else
+                        {
+                            <a href="" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">Welcome @username &nbsp;<img src="~/Content/Back/assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle"> </a>
+
+                        }
+                        <ul class="dropdown-menu">
+                            @*<li><a href="javascript:void(0)"><i class="ti-lock m-r-10 text-custom"></i> Change Password</a></li>*@
+                           
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="ti-power-off m-r-10 text-danger"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<!-- Top Bar End -->
+
+
+
+
+
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+{
+    @Html.AntiForgeryToken()
+}

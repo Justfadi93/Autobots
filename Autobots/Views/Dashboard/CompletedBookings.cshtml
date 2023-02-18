@@ -1,0 +1,194 @@
+﻿@using Autobots.Entities.Models.Defaults;
+
+@model  List<Autobots.Entities.Models.DB.Order>
+@{
+    Layout = "~/Views/Shared/Dashboard/_DashboardLayout.cshtml";
+    ViewBag.Title = "Complete Bookings ";
+}
+<!-- DataTables -->
+<link href="~/Content/Back/assets/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Back/assets/plugins/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Back/assets/plugins/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Back/assets/plugins/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Back/assets/plugins/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Back/assets/plugins/datatables/dataTables.colVis.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Back/assets/plugins/datatables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Back/assets/plugins/datatables/fixedColumns.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box table-responsive">
+            <h4 class="m-t-0 header-title"><b>Complete Bookings </b></h4>
+            <p class="text-muted font-13 m-b-30">
+                You can check Your Complete booking details below
+            </p>
+
+            <table id="datatable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Contact</th>
+                        <th>Car Model</th>
+                        <th>Booking Date</th>
+                        <th>Time Slot</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
+
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Address</td>
+                            <td>@item.PhoneNo</td>
+                            <td>@item.CarModel.Name</td>
+                            <td>@item.CreatedAt.Date</td>
+                            <td>@item.TimingSlot.StartingTime.ToShortTimeString()+@item.TimingSlot.EndingTime.ToShortTimeString()</td>
+                            <td> @item.Price-/Rs</td>
+                            <td class="changeStatus">
+                                @if (item.status == (int)BookingType.Complete)
+                                {
+                                    <span class="label label-table label-success">Complete</span>
+                                }
+                               
+                            </td>
+                            <td>
+                                <span><a href="/Dashboard/ViewBooking/@item.Id" class="on-default edit-row" title="View Booking Detials"><i class="glyphicon glyphicon-info-sign"></i></a></span>
+                                <a href="#" class="on-default remove-row" onclick="DeleteBooking(@item.Id)"><i class="fa fa-trash-o"></i></a>
+
+                            </td>
+
+
+
+                        </tr>
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+
+    <script src="~/Content/Back/assets/js/modernizr.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/buttons.bootstrap.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/jszip.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/pdfmake.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/vfs_fonts.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/buttons.print.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/dataTables.fixedHeader.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/dataTables.keyTable.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/responsive.bootstrap.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/dataTables.scroller.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/dataTables.colVis.js"></script>
+    <script src="~/Content/Back/assets/plugins/datatables/dataTables.fixedColumns.min.js"></script>
+
+    <script src="~/Content/Back/assets/pages/datatables.init.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').dataTable();
+            $('#datatable-keytable').DataTable({ keys: true });
+            $('#datatable-responsive').DataTable();
+            $('#datatable-colvid').DataTable({
+                "dom": 'C<"clear">lfrtip',
+                "colVis": {
+                    "buttonText": "Change columns"
+                }
+            });
+            $('#datatable-scroller').DataTable({
+                ajax: "assets/plugins/datatables/json/scroller-demo.json",
+                deferRender: true,
+                scrollY: 380,
+                scrollCollapse: true,
+                scroller: true
+            });
+            var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
+            var table = $('#datatable-fixed-col').DataTable({
+                scrollY: "300px",
+                scrollX: true,
+                scrollCollapse: true,
+                paging: false,
+                fixedColumns: {
+                    leftColumns: 1,
+                    rightColumns: 1
+                }
+            });
+        });
+        TableManageButtons.init();
+
+    </script>
+    <script>
+        function DeleteBooking(id) {
+            debugger;
+            $.LoadingOverlay("show");
+            $.ajax({
+                cache: false,
+                type: 'GET',
+                url: '/Customer/DeleteOrder?id=' + id,
+                success: function (result) {
+                    if (result === true) {
+                        
+                          $.LoadingOverlay("hide");
+                          debugger;
+                        swal({
+                            position: 'center',
+                            type: 'success',
+                            title:'Your Booking Has been Deleted Successfully !!!',
+                            showConfirmButton: true,
+
+                        });
+                        window.location.href = '@Url.Action("CompletedBookings", "Customer" )';
+                    }
+                },
+                error: function (request, status, error) {
+                    $.LoadingOverlay("hide");
+
+                    //Do Something on Failure
+                    alert("please try again");
+                }
+
+
+            });
+
+
+
+
+
+        }
+
+    </script>
+}
+
+

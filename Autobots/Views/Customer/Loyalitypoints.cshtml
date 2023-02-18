@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Loyalitypoints";
+    Layout = "~/Views/Shared/Dashboard/_DashboardLayout.cshtml";
+}
+
+<!-- HOME -->
+<section class="home bg-dark" id="home">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="home-wrapper">
+                    <h2 class="icon-main text-custom"><i class="md md-album"></i> COMING SOON</h2>
+                    <h1 class="home-text"><span class="rotate">We have best Mechanics of Lahore,We are Professional in our field,Customer Satisfaction is our First Preference</span></h1>
+                    <p class="m-t-30 text-muted cd-text">
+                       Very Soon We will introduced Loyality Points Which will give benefits to customers so that they can use Loyality points to Purchase our services for free.
+                        <br />
+                    </p>
+
+                    <!-- COUNTDOWN -->
+                    <div class="row m-t-40">
+                        <div class="col-sm-12 u-countdown">
+                            <div class="row">
+                                <div>
+                                    <div>
+                                        <span>0</span><span>Days</span>
+                                    </div>
+                                    <div>
+                                        <span>0</span><span>Hours</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <span>0</span><span>Minutes</span>
+                                    </div>
+                                    <div>
+                                        <span>0</span><span>Seconds</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /COUNTDOWN -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END HOME -->
+
+@section scripts{
+
+    <script src="~/Content/Back/assets/plugins/countdown/dest/jquery.countdown.min.js"></script>
+    <script src="~/Content/Back/assets/plugins/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // Countdown
+            // To change date, simply edit: var endDate = "September 16, 2016 18:16:00";
+            $(function () {
+                var endDate = "March 17, 2018 11:59:59";
+                $('.u-countdown .row').countdown({
+                    date: endDate,
+                    render: function (data) {
+                        $(this.el).html('<div><div><span class="text-custom">' + (parseInt(this.leadingZeros(data.years, 2) * 365) + parseInt(this.leadingZeros(data.days, 2))) + '</span><span><b>Days</b></span></div><div><span class="text-primary">' + this.leadingZeros(data.hours, 2) + '</span><span><b>Hours</b></span></div></div><div class="lj-countdown-ms"><div><span class="text-pink">' + this.leadingZeros(data.min, 2) + '</span><span><b>Minutes</b></span></div><div><span class="text-info">' + this.leadingZeros(data.sec, 2) + '</span><span><b>Seconds</b></span></div></div>');
+                    }
+                });
+            });
+
+            // Text rotate
+            $(".home-text .rotate").textrotator({
+                animation: "fade",
+                speed: 3000
+            });
+        });
+
+    </script>
+
+}

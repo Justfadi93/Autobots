@@ -1,0 +1,10 @@
+﻿@model List<Autobots.Entities.Models.ViewModels.ListViewModel>
+
+@foreach (var item in Model)
+{
+    <option id="modelid" value="@item.Id" @(item.Selected ? "selected=\"selected\"" : "")>
+    @item.Name
+    </option>
+}
+
+

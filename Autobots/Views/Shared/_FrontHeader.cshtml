@@ -1,0 +1,193 @@
+﻿<!-- header start area -->
+<header class="stricky  clearfix header_wrapper">
+    <section id="header_area" class="clearfix">
+        <div class="navigation">
+            <div class="container containerPlus">
+                <div class="row">
+                    <div class="header_top_bar">
+                        <div class="logo_area">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <a href="/Home/Index">
+                                    <img src="~/Content/Front/img/home-v1/final.png" alt="" style="width:100%"; />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="header_contact_area">
+                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                <div class="header_column">
+                                    <div class="column_details column_three">
+                                        <div class="column_left">
+                                            <i class="flaticon-telephone51"></i>
+                                        </div>
+                                        <div class="column_right">
+                                            <h2>Call Now</h2>
+                                            <h3>0300-9431663</h3>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                @*<div class="header_column">
+
+                                    <div class="column_details column_two" style="margin-top:5px;">
+                                        @
+                                        <div class="header_social">
+                                            <a class="" href="http://www.facebook.com/" target="blanck" style="color:#be0014; font-weight:600; font-size:larger">
+                                                Follow US <i class="fa fa-facebook"></i>
+                                            </a>
+                                            <a href="http://www.skype.com/" target="blanck">
+                                                <i class="fa fa-skype"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>*@
+
+
+
+                                @*<a class="" href="http://www.facebook.com/" target="blanck" style="color:#be0014; font-weight:600; font-size:larger">
+                                        Follow US <i class="fa fa-facebook"></i>
+                                    </a>*@
+
+
+                                <div class="header_column">
+                                    <div class="column_details column_four" style="width:31%">
+                                        <div class="header_social">
+                                            @*<a class="" href="http://www.facebook.com/" target="blanck" style="color:#be0014; font-weight:600; font-size:larger">
+                                                   Follow US <i class="fa fa-facebook"></i>
+                                                </a>*@
+
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <a href="/Dashboard/Index" class="btn-ifno hvr-bounce-to-right btn-packege" style="padding-top: 8px;width: 120px;height: 35px;border-radius: 20px;">
+                                                    Dashboard
+                                                </a>
+                                                @*<a href="/Account/LogOff" class="btn-ifno hvr-bounce-to-right btn-packege" style="padding-top: 8px;width: 120px;height: 35px;">
+                                                        Logout
+                                                    </a>*@
+                                            }
+                                            else
+                                            {
+                                                <a href="/Account/Login" class="btn-ifno hvr-bounce-to-right btn-packege" style="padding-top: 8px;width: 120px;height: 35px; border-radius: 20px;">
+                                                    Login
+                                                </a>
+                                                <a href="/Account/Register" class="btn-ifno hvr-bounce-to-right btn-packege" style="padding-top: 8px;width: 120px;height: 35px; border-radius: 20px;">
+                                                    SignUp
+                                                </a>
+
+                                            }
+
+
+                                            @*<a href="http://www.skype.com/" target="blanck">
+                                                    <i class="fa fa-skype"></i>
+                                                </a>
+                                                <a href="http://www.twitter.com/" target="blanck">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                                <a href="http://www.pinterest.com/" target="blanck">
+                                                    <i class="fa fa-pinterest"></i>
+                                                </a>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="row">
+                    <div class="nav_area">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-4">
+                            <div class="manu_area">
+                                <div class="navbar" role="navigation">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                        <!-- logo here -->
+                                        @*<a class="navbar-brand logo_hide" href="@Url.Action("Index")">
+                                                <img src="~/Content/Front/img/home-v1/logo.png" alt="" />
+                                            </a>*@
+                                    </div>
+                                    <div class="navbar-collapse collapse">
+                                        <!-- Nav menu -->
+                                        <ul class="nav navbar-nav mainmenu">
+                                            <li class="">
+                                                <a href="/Home/Index">
+                                                    HOME
+                                                    @*<span class="caret"></span>*@
+                                                </a>
+                                                <!--  <ul class="dropdown-menu subpage">
+                                                  <li><a href="index.html">Home One</a></li>
+                                                  <li><a href="index-v2.html">Home Two</a></li>
+                                                  <li><a href="index-v3.html">Home Three</a></li>
+                                                </ul> -->
+                                            </li>
+                                            <li>
+                                                <a href="/Home/Services">
+                                                    Services
+                                                    @*<span class="caret"></span>*@
+                                                </a>
+                                                <!-- <ul class="dropdown-menu">
+                                                  <li><a href="appoinment.html">Appoinment</a></li>
+                                                  <li><a href="blog-details.html">Blog Details</a></li>
+                                                  <li><a href="warranty.html">Warranty</a></li>
+                                                </ul> -->
+                                            </li>
+                                            <li>
+                                                <a href="/Home/About">ABOUT US</a>
+                                            </li>
+                                            <!-- <li><a href="service.html">SERVICE<span class="caret"></span></a>
+                                              <ul class="dropdown-menu">
+                                                <li><a href="conditioning.html">Air Conditioning</a></li>
+                                                <li><a href="battery.html">Battery Service</a></li>
+                                                <li><a href="brakes.html">Brakes Service</a></li>
+                                                <li><a href="exhaust.html">Exhaust Systems</a></li>
+                                                <li><a href="emissions.html">Emissions</a></li>
+                                                <li><a href="oil.html">Oil Change</a></li>
+                                                <li><a href="preventative.html">Preventative Maintenance</a></li>
+                                                <li><a href="tirePressure.html">Tire Pressure</a></li>
+                                                <li><a href="tireService.html">Tire Service</a></li>
+                                                <li><a href="transmission.html">Transmission Service</a></li>
+                                                <li><a href="wheel.html">Wheel Alignment</a></li>
+                                              </ul>
+                                            </li>  -->
+                                            @*<li>
+                                                    <a href="javascript:void(0)">GALLERY</a>
+                                                </li>*@
+                                            <li>
+                                                <a href="/Home/WhyUs">Why US</a>
+                                            </li>
+                                            <!-- <li><a href="blog.html">BLOG</a></li> -->
+                                            <li>
+                                                <a href="/Home/Contact">CONTACT US</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
+                            <a href="/Home/Appointment#startappointment">
+                                <div class="quote">
+
+                                    <p>
+
+                                        <span>
+                                            <i class="fa fa-location-arrow"></i>
+                                        </span>GET FREE QUOTE
+
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>
+<!-- header end area -->

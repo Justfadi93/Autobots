@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+
+    <link rel="shortcut icon" href="assets/images/favicon_1.ico">
+
+    <title>Auto|Bots -@ViewBag.Title </title>
+
+    @Styles.Render("~/css/maincss")
+    
+    <style>
+        .account-pages{
+
+            /*background:#fff;*/
+            background:url('/Content/Front/img/COVER-IMAGE.jpg') no-repeat;
+        background-size:cover;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div>
+        <div class="account-pages"></div>
+        <div class="clearfix"></div>
+        
+
+            @RenderBody()
+        </div>
+   
+    @Scripts.Render("~/JS/MainJS")
+    @RenderSection("scripts", required: false)
+    <script>
+    var resizefunc = [];
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+
+    <link rel="shortcut icon" href="assets/images/favicon_1.ico">
+
+    <title>Auto|Bots - Car Services</title>
+    @Styles.Render("~/css/maincss")
+
+ 
+
+    <title>@ViewBag.Title - Dashboard</title>
+</head>
+<body class="fixed-left">
+    <!-- Begin page -->
+    <div id="wrapper">
+        @Html.Partial("Dashboard/_DashboardTopbar")
+        <!-- ============================================================== -->
+        @Html.Partial("Dashboard/_DashboardLeftBar")
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container">
+                    <a href="~/Views/Shared/Dashboard/_DashboardLeftbar.cshtml"></a>
+                    @RenderBody()
+
+                    <!-- ============================================================== -->
+                </div> <!-- container -->
+            </div> <!-- content -->
+            <footer class="footer">
+                © @DateTime.Now.Year. Auto|Bots – All Rights Reserved
+            </footer>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+      
+    </div>
+    @Scripts.Render("~/JS/MainJS")
+    @RenderSection("scripts", required: false)
+    <script>
+        var resizefunc = [];
+        jQuery(document).ready(function ($) {
+            $('.counter').counterUp({
+                delay: 100,
+                time: 1200
+            });
+
+            $(".knob").knob();
+
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.5.4/src/loadingoverlay.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert2@7.3.3/dist/sweetalert2.all.js"></script>
+
+</body>
+</html>

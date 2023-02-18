@@ -1,0 +1,816 @@
+﻿@model Autobots.Entities.Models.DB.Booking
+
+@{
+    Layout = "~/Views/Shared/_FrontLayout.cshtml";
+    ViewBag.Title = "Welcome";
+}
+@{Html.RenderPartial("_FrontSlider");}
+<style>
+
+
+
+    .form-two {
+        color: #ffffff;
+    }
+
+    .hb {
+        color: #be0014 !important;
+    }
+
+        .hb:hover i {
+            color: #fff;
+        }
+</style>
+
+<!-- introduce  start area -->
+<section id="introduce_area">
+    <div class="container">
+        <div class="row">
+            @*<div class="intorduce">
+                    <div class="col-lg-5 col-md-5">
+                        <div class="introduce_heading">
+                            <h2>
+                                Let's introduce Auto
+                                <span>Bots</span>
+                            </h2>
+                            <p>
+                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some
+                                form by injected humor, or randomized words which don't look even slightly believable. If you are going to use a
+                                passage of Lorem Ipsum you need to be there isn't anything embarrasing hidden in the middle of text.All the Lorem
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="car_img">
+                            <img src="~/Content/Front/img/home-v1/toyota.png" alt="" />
+                        </div>
+                    </div>
+                </div>*@
+
+            <!-- introduce icon area start -->
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="single_icon  text-center">
+                    <a href="~/Home/Appointment">
+                        <span class="hb inv hb-md">
+                            <i class="flaticon-transport1054"></i>
+                        </span>
+                    </a>
+                    <div class="icon_details">
+                        <h2>Oil Change</h2>
+                        <p>A varied range of brands for you to choose the best for your car by yourself </p>
+                    </div>
+                    @*<a href="#">
+                            Read More
+                            <i class="flaticon-right11"></i>
+                        </a>*@
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="single_icon text-center">
+                    <a href="~/Home/Appointment">
+                        <span class="hb inv hb-md">
+                            <i class="flaticon-speed2"></i>
+                        </span>
+                    </a>
+                    <div class="icon_details">
+                        <h2>Car Tuning</h2>
+                        <p>Professionally trained technicians will breathe new life in your car </p>
+                    </div>
+                    @*<a href="#">
+                            Read More
+                            <i class="flaticon-right11"></i>
+                        </a>*@
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="single_icon text-center">
+                    <a href="~/Home/Appointment">
+                        <span class="hb inv hb-md">
+                            <i class="flaticon-hammer58"></i>
+                        </span>
+                    </a>
+                    <div class="icon_details">
+                        <h2>Break Service</h2>
+                        <p> Replacing old breaks with new one, multi standard breaks available. </p>
+                    </div>
+                    @*<a href="#">
+                            Read More
+                            <i class="flaticon-right11"></i>
+                        </a>*@
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="single_icon text-center">
+                    <a href="~/Home/Appointment">
+                        <span class="hb inv hb-md">
+                            <i class="flaticon-rocketship4"></i>
+                        </span>
+                    </a>
+                    <div class="icon_details">
+                        <h2>Additional Services</h2>
+                        <p>Filter change, car inspections, battery replacement and carwash </p>
+                    </div>
+                    @*<a href="#">
+                            Read More
+                            <i class="flaticon-right11"></i>
+                        </a>*@
+                </div>
+            </div>
+            <!-- introduce icon area end -->
+        </div>
+    </div>
+</section>
+<!-- introduce end area -->
+<!-- packege start area -->
+@*<section id="packege_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="packege_details">
+                        <h2>
+                            Confused !!!
+                            <span> About Our Services!</span>
+                        </h2>
+                        <p>Let Us know your Contact Our Support person will Call you with in 30 minutes </p>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <p style="padding-top: 40px;">
+                        <span>
+                            <input type="text" id="user-number" name="Contact" placeholder="Enter Your Contact Number here" />
+                        </span>
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <div class="packege_button">
+                        <button class="btn-ifno hvr-bounce-to-right btn-packege" onclick="CallMe()">
+                            <i class="flaticon-telephone51"></i> &nbsp;&nbsp;Call Me
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+<!-- packege end area -->
+<!-- service start area -->
+@*<section id="service_area">
+        <div class="container">
+            <div class="row">
+                <div class="section_heading text-center">
+                    <h2>OUR SERVICE</h2>
+                    <p>
+                        Keeping a well-maintained vehicle is paramount to your safety. That is why our team of nearly 500 professional technicians
+                        are ready to make your vehicle safe and
+                    </p>
+                </div>
+                <div class="row grid team">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="effect-chico figure">
+                            <img src="~/Content/Front/img/home-v1/service-1.jpg" alt="img01" class="img-responsive" />
+                            <div class="caption_details figcaption">
+                                <p>
+                                    <b>Oil Change</b>
+                                    <br>Nunc placerat phareta lorem
+                                    <br />onec benean porttitor
+                                    <br>
+                                    <br>
+                                    <a href="/Home/Appointment" class="btn btn-info more">Get Quote</a>
+                                </p>
+                            </div>
+                            <div class="effect_title">
+                                <a href="/Home/Appointment">
+                                    Oil Change
+                                    <i class="flaticon-right11"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="effect-chico figure">
+                            <img src="~/Content/Front/img/home-v1/service-2.jpg" alt="img01" class="img-responsive" />
+                            <div class="caption_details figcaption">
+                                <p>
+                                    <b>Tuning</b>
+                                    <br>Nunc placerat phareta lorem
+                                    <br />onec benean porttitor
+                                    <br>
+                                    <br>
+                                    <a href="/Home/Appointment" class="btn btn-info more">Get Quote</a>
+                                </p>
+                            </div>
+                            <div class="effect_title">
+                                <a href="/Home/Appointment">
+                                    Tuning
+                                    <i class="flaticon-right11"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="effect-chico figure">
+                            <img src="~/Content/Front/img/home-v1/service-3.jpg" alt="img01" class="img-responsive" />
+                            <div class="caption_details figcaption">
+                                <p>
+                                    <b>Battery Service</b>
+                                    <br>Nunc placerat phareta lorem
+                                    <br />onec benean porttitor
+                                    <br>
+                                    <br>
+                                    <a href="/Home/Appointment" class="btn btn-info more">Get Quote</a>
+                                </p>
+                            </div>
+                            <div class="effect_title">
+                                <a href="/Home/Appointment">
+                                    Battery Service
+                                    <i class="flaticon-right11"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+                <div class="row grid team">
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="effect-chico figure">
+                            <img src="~/Content/Front/img/home-v1/service-1.jpg" alt="img01" class="img-responsive" />
+                            <div class="caption_details figcaption">
+                                <p>
+                                    <b>Oil Change</b>
+                                    <br>Nunc placerat phareta lorem
+                                    <br />onec benean porttitor
+                                    <br>
+                                    <br>
+                                    <a href="/Home/Appointment" class="btn btn-info more">Get Quote</a>
+                                </p>
+                            </div>
+                            <div class="effect_title">
+                                <a href="/Home/Appointment">
+                                    Oil Change
+                                    <i class="flaticon-right11"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="effect-chico figure">
+                            <img src="~/Content/Front/img/home-v1/service-2.jpg" alt="img01" class="img-responsive" />
+                            <div class="caption_details figcaption">
+                                <p>
+                                    <b>Tuning</b>
+                                    <br>Nunc placerat phareta lorem
+                                    <br />onec benean porttitor
+                                    <br>
+                                    <br>
+                                    <a href="/Home/Appointment" class="btn btn-info more">Get Quote</a>
+                                </p>
+                            </div>
+                            <div class="effect_title">
+                                <a href="/Home/Appointment">
+                                    Tuning
+                                    <i class="flaticon-right11"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="effect-chico figure">
+                            <img src="~/Content/Front/img/home-v1/service-3.jpg" alt="img01" class="img-responsive" />
+                            <div class="caption_details figcaption">
+                                <p>
+                                    <b>Battery Service</b>
+                                    <br>Nunc placerat phareta lorem
+                                    <br />onec benean porttitor
+                                    <br>
+                                    <br>
+                                    <a href="/Home/Appointment" class="btn btn-info more">Get Quote</a>
+                                </p>
+                            </div>
+                            <div class="effect_title">
+                                <a href="/Home/Appointment">
+                                    Battery Service
+                                    <i class="flaticon-right11"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="service_button_all text-center">
+                        <a href="/Home/Services" class="btn-info hvr-sweep-to-bottom service_button">SEE ALL SERVICE</a>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+
+<!-- most professionals area start -->
+@*<section id="professional_area">
+        <div class="container">
+            <div class="row">
+                <div class="professional">
+                    <!-- left column -->
+                    <div class="col-lg-5 col-md-5">
+                        <div class="video-player">
+                            <div data-video="AzMxPbrEtpA" id="video">
+                                <img src="~/Content/Front/img/home-v3-video-player/poster.jpg" alt="Use your own screenshot.">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- right column -->
+                    <div class="col-lg-7 col-md-7">
+                        <div class="professional_details">
+                            <h2>WE ARE THE MOST PROFFESIONALS CAR REPAIR COMPANY IN AMERICA!!</h2>
+                            <h3>
+                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                                eaque ipsa quae ab illo
+                            </h3>
+                            <p>
+                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some
+                                form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use
+                                a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All
+                                the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary
+                            </p>
+                            <button class="btn-info hvr-bounce-to-right most_button">Book Us Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+<!-- most professionals area end -->
+<!-- appointment start area -->
+@*<section id="appointment_area_three">
+        <div class="container full-width">
+            <div class="row">
+                <div class="appointer_img">
+                    <img src="~/Content/Front/img/home-v3/appointer_img.jpg" alt="" />
+                </div>
+
+
+
+
+                <div class="appointer_form">
+                    <div class="form_title">
+                        <h2>Get Free appointment</h2>
+                        <p>Keeping a well-maintained vehicle is paramount to your safety.</p>
+                    </div>
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                    {
+
+                        <input type="text" placeholder="username" class="form-two" name="@Html.NameFor(x=>x.Name)" />
+                        <input type="text" placeholder="Email" class="form-two" name="@Html.NameFor(x=>x.Email)" />
+                            <input type="text" placeholder="Phone Number" class="form-two" name="@Html.NameFor(x=>x.Number)" />
+                            <br />
+                            <textarea name="@Html.NameFor(x=>x.Message)" id="area" cols="30" rows="10"></textarea>
+                            <br />
+                            <button class="btn btn-info hvr-bounce-to-right send" type="submit">SEND</button>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </section>*@
+<!-- appointment end area -->
+<!-- service end area -->
+<!-- Gallery start area -->
+<!-- <section id="gallery_area">
+    <div class="container">
+        <div class="row">
+            <div class="gallery_heading text-center">
+                <h2>WORK GALLERY</h2>
+                <p>Keeping a well-maintained vehicle is paramount to your safety. That is why our team of nearly 500 professional technicians are ready to make your vehicle safe and </p>
+            </div>
+            <div id="gallery_Work" >
+                <div class="item gallery_team view second-icon second-effect">
+                    <img src="~/Content/Front/img/home-v1/gallery-1.jpg" alt="img" />
+                    <a href="~/Content/Front/img/home-v1/gallery-1.jpg" class="fancybox"><div class="mask">
+                        <span><i class="flaticon-plus79"></i></span>
+                    </div></a>
+                </div>
+                <div class="item gallery_team view second-icon second-effect">
+                    <img src="~/Content/Front/img/home-v1/gallery-2.jpg" alt="img" />
+                    <a href="~/Content/Front/img/home-v1/gallery-2.jpg" class="fancybox"><div class="mask">
+                        <span><i class="flaticon-plus79"></i></span>
+                    </div></a>
+                </div>
+                <div class="item gallery_team view second-icon second-effect">
+                    <img src="~/Content/Front/img/home-v1/gallery-3.jpg" alt="img" />
+                    <a href="~/Content/Front/img/home-v1/gallery-3.jpg" class="fancybox"><div class="mask">
+                        <span><i class="flaticon-plus79"></i></span>
+                    </div> </a>
+                </div>
+                <div class="item gallery_team view second-icon second-effect">
+                    <img src="~/Content/Front/img/home-v1/gallery-4.jpg" alt="img" />
+                    <a href="~/Content/Front/img/home-v1/gallery-4.jpg" class="fancybox"><div class="mask">
+                        <span><i class="flaticon-plus79"></i></span>
+                    </div></a>
+                </div>
+                <div class="item gallery_team view second-icon second-effect">
+                    <img src="~/Content/Front/img/home-v1/gallery-1.jpg" alt="img" />
+                    <a href="~/Content/Front/img/home-v1/gallery-1.jpg" class="fancybox"><div class="mask">
+                        <span><i class="flaticon-plus79"></i></span>
+                    </div></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- Gallery end area -->
+<!-- Testimonial start area -->
+<!-- 	<div id="testimonial_area">
+    <div class="container">
+        <div class="row">
+            <div class="section_heading text-center">
+                <h2>Client's love us</h2>
+                <p>Keeping a well-maintained vehicle is paramount to your safety. That is why our team of nearly 500 professional </p>
+            </div>
+            <div class="ms-staff-carousel">
+                masterslider
+                <div class="master-slider" id="masterslider">
+                    <div class="ms-slide">
+                        <img src="~/Content/Front/img/home-testimonial/testimonial-1.png" data-src="~/Content/Front/img/home-testimonial/testimonial-1.png" alt="lorem ipsum dolor sit"/>
+                        <div class="ms-info">
+                            <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through </p>
+                            <h2>smith cesaro </h2>
+                            <h3>Gold user from 2 years</h3>
+                        </div>
+                    </div>
+                    <div class="ms-slide">
+                        <img src="~/Content/Front/img/home-testimonial/testimonial-2.png" data-src="~/Content/Front/img/home-testimonial/testimonial-2.png" alt="lorem ipsum dolor sit"/>
+                        <div class="ms-info">
+                            <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through </p>
+                            <h2>smith cesaro </h2>
+                            <h3>Gold user from 2 years</h3>
+                        </div>
+                    </div>
+                    <div class="ms-slide">
+                        <img src="~/Content/Front/img/home-testimonial/testimonial-3.png" data-src="~/Content/Front/img/home-testimonial/testimonial-3.png" alt="lorem ipsum dolor sit"/>
+                        <div class="ms-info">
+                            <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through </p>
+                            <h2>smith cesaro </h2>
+                            <h3>Gold user from 2 years</h3>
+                        </div>
+                    </div>
+                    end of masterslider
+                    <div class="ms-staff-info" id="staff-info"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- Testimonialend area -->
+<!-- Team start area -->
+<!-- <section id="team_area">
+    <div class="container">
+        <div class="row">
+            <div class="section_heading text-center">
+                <h2>OUR EXPERT TEAM</h2>
+                <p>Keeping a well-maintained vehicle is paramount to your safety. That is why our team of nearly 500 </p>
+            </div>
+            team member one
+            <div class="single_team_member">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="single_member">
+                        <div class="view second-effect team-one">
+                          <img src="~/Content/Front/img/home-v1/team-1.jpg" alt="" />
+                          <div class="mask">
+                                <span><i class="flaticon-plus79"></i></span>
+                          </div>
+                        </div>
+                        <div class="member_details">
+                            <h2>Benson Cesaro</h2>
+                            <p>Body Expert</p>
+                            <hr />
+                        </div>
+                        <div class="member_social">
+                            <a href="http://www.facebook.com/" target="blanck"><i class="fa fa-facebook"></i></a>
+                            <a href="http://www.skype.com/" target="blanck"><i class="fa fa-skype"></i></a>
+                            <a href="http://www.twitter.com/" target="blanck"><i class="fa fa-twitter"></i></a>
+                            <a href="http://www.pinterest.com/" target="blanck"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            team member one
+            <div class="single_team_member">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="single_member">
+                        <div class="view second-effect team-one">
+                          <img src="~/Content/Front/img/home-v1/team-2.jpg" alt="" />
+                          <div class="mask">
+                            <span><i class="flaticon-plus79"></i></span>
+                          </div>
+                        </div>
+                        <div class="member_details">
+                            <h2>Benson Cesaro</h2>
+                            <p>Body Expert</p>
+                            <hr />
+                        </div>
+                        <div class="member_social">
+                            <a href="http://www.facebook.com/" target="blanck"><i class="fa fa-facebook"></i></a>
+                            <a href="http://www.skype.com/" target="blanck"><i class="fa fa-skype"></i></a>
+                            <a href="http://www.twitter.com/" target="blanck"><i class="fa fa-twitter"></i></a>
+                            <a href="http://www.pinterest.com/" target="blanck"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            team member one
+            <div class="single_team_member">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="single_member">
+                        <div class="view second-effect team-one">
+                          <img src="~/Content/Front/img/home-v1/team-3.jpg" alt="" />
+                          <div class="mask">
+                            <span><i class="flaticon-plus79"></i></span>
+                          </div>
+                        </div>
+                        <div class="member_details">
+                            <h2>Benson Cesaro</h2>
+                            <p>Body Expert</p>
+                            <hr />
+                        </div>
+                        <div class="member_social">
+                            <a href="http://www.facebook.com/" target="blanck"><i class="fa fa-facebook"></i></a>
+                            <a href="http://www.skype.com/" target="blanck"><i class="fa fa-skype"></i></a>
+                            <a href="http://www.twitter.com/" target="blanck"><i class="fa fa-twitter"></i></a>
+                            <a href="http://www.pinterest.com/" target="blanck"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            team member one
+            <div class="single_team_member">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="single_member">
+                        <div class="view second-effect team-one">
+                          <img src="~/Content/Front/img/home-v1/team-4.jpg" alt="" />
+                          <div class="mask">
+                            <span><i class="flaticon-plus79"></i></span>
+                          </div>
+                        </div>
+                        <div class="member_details">
+                            <h2>Benson Cesaro</h2>
+                            <p>Body Expert</p>
+                            <hr />
+                        </div>
+                        <div class="member_social">
+                            <a href="http://www.facebook.com/" target="blanck"><i class="fa fa-facebook"></i></a>
+                            <a href="http://www.skype.com/" target="blanck"><i class="fa fa-skype"></i></a>
+                            <a href="http://www.twitter.com/" target="blanck"><i class="fa fa-twitter"></i></a>
+                            <a href="http://www.pinterest.com/" target="blanck"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section> -->
+<!-- Team end area -->
+<!-- appointment start area -->
+<!-- <section id="appointment_area">
+    <div class="container">
+        <div class="row">
+            <div class="appointment text-center">
+                <div class="appoint_icon">
+                    <i class="flaticon-rocketship4"></i>
+                </div>
+                <h2>Get Free appointment</h2>
+                <p>Keeping a well-maintained vehicle is paramount to your safety.</p>
+            </div>
+            <div class="col-lg-12 col-md-12 text-center">
+                <div class="from_area text-center">
+                    <form>
+                        <input type="text" value="Name" class="form-one"/>
+                        <input type="text" value="Email" class="form-one"/>
+                        <input type="text" value="Phone Number" class="form-one"/> <br />
+                        <textarea name="Message" cols="30" rows="10">Message</textarea> <br />
+                        <button class="btn btn-info hvr-bounce-to-right send">SEND</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- appointment end area -->
+<!-- FAQ News start area -->
+@*<section id="new_area">
+        <div class="container">
+            <div class="row">
+                <div class="section_heading text-center">
+                    <h2>LATEST & NEWS</h2>
+                    <p>Keeping a well-maintained vehicle is paramount to your safety. That is why our team of nearly 500 professional </p>
+                </div>
+                <div class="faq">
+                    <div class="faq_details">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="single_faq">
+                                <img src="~/Content/Front/img/home-v3-Latest-News/news-1.jpg" alt="" />
+                            </div>
+                            <div class="single_date_two">
+                                <h2>
+                                    22
+                                    <br />
+                                    <span>MAR</span>
+                                </h2>
+                            </div>
+                            <div class="date_details_two">
+                                <h2>There will be short heading with img</h2>
+
+                            </div>
+                            <div class="single_faq_details">
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                <a href="#">
+                                    Read More
+                                    <i class="flaticon-right11"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="single_faq">
+                                <img src="~/Content/Front/img/home-v3-Latest-News/news-2.jpg" alt="" />
+                            </div>
+                            <div class="single_date_two">
+                                <h2>
+                                    22
+                                    <br />
+                                    <span>MAR</span>
+                                </h2>
+                            </div>
+                            <div class="date_details_two">
+                                <h2>There will be short heading with img</h2>
+
+                            </div>
+                            <div class="single_faq_details">
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                <a href="#">
+                                    Read More
+                                    <i class="flaticon-right11"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 last_date">
+                            <div class="single_faq">
+                                <img src="~/Content/Front/img/home-v3-Latest-News/news-3.jpg" alt="" />
+                            </div>
+                            <div class="single_date_two">
+                                <h2>
+                                    22
+                                    <br />
+                                    <span>MAR</span>
+                                </h2>
+                            </div>
+                            <div class="date_details_two ">
+                                <h2>There will be short heading with img</h2>
+
+                            </div>
+                            <div class="single_faq_details">
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                                <a href="#">
+                                    Read More
+                                    <i class="flaticon-right11"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+<!-- FAQ News end area -->
+<!-- Brand icon area start -->
+@*<div id="brand_area" class="brand-one">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="owl-demo-brand">
+                        <div class="item ">
+                            <img src="~/Content/Front/img/home-v1-brand-crausal/brand-1.png" alt="img" />
+                        </div>
+                        <div class="item">
+                            <img src="~/Content/Front/img/home-v1-brand-crausal/brand-3.png" alt="img" />
+                        </div>
+                        <div class="item">
+                            <img src="~/Content/Front/img/home-v1-brand-crausal/brand-4.png" alt="img" />
+                        </div>
+                        <div class="item">
+                            <img src="~/Content/Front/img/home-v1-brand-crausal/brand-5.png" alt="img" />
+                        </div>
+                        <div class="item ">
+                            <img src="~/Content/Front/img/home-v1-brand-crausal/brand-1.png" alt="img" />
+                        </div>
+
+                        <div class="item">
+                            <img src="~/Content/Front/img/home-v1-brand-crausal/brand-3.png" alt="img" />
+                        </div>
+                        <div class="item">
+                            <img src="~/Content/Front/img/home-v1-brand-crausal/brand-4.png" alt="img" />
+                        </div>
+                        <div class="item">
+                            <img src="~/Content/Front/img/home-v1-brand-crausal/brand-5.png" alt="img" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!-- Brand icon area end -->
+
+@section pagespecific{
+    <script>
+        $(document).ready(function () {
+
+            debugger;
+            var booking = '@ViewBag.book';
+
+            var order = '@ViewBag.order';
+            if (order === 'true') {
+                swal({
+                    position: 'center',
+                    type: 'success',
+                    timer: 14000,
+                    title:
+                        'Your Booking Has been sent to AutoBots Support! Our team Will be at your Place on your Provided Time SLot',
+                    showConfirmButton: true,
+
+                });
+            }
+
+            if (booking === 'success') {
+                swal({
+                    position: 'center',
+                    type: 'success',
+                    title:
+                        'Your Booking Has been sent to AutoBots Support! Soon you will recieve a call from our side  ',
+                    showConfirmButton: false,
+                    timer: 7000
+                });
+
+            }
+        });
+    </script>
+
+
+    <script>
+        function CallMe() {
+            debugger;
+            var num = $("#user-number").val();
+            $.ajax({
+                url: '/Home/CallMe?number=' + num,
+                type: 'Get',
+                success: function (response) {
+                    debugger;
+                    if (response === 'true') {
+                        // debugger;
+                        swal({
+                            type: 'success',
+                            title: 'You will get a Call from Our Support Agent in next 30 Minutes !',
+                            width: 600,
+                            padding: 100,
+                            confirmButtonColor: '#be0014'
+
+                        });
+                    } else {
+                        reject("This number is not correct!");
+                    }
+                },
+                fail: function () {
+                    reject("This number is not correct!");
+                }
+            });
+        }
+
+    </script>
+
+
+}

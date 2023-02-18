@@ -1,0 +1,72 @@
+﻿@*@model1 Autobots.Entities.model1s.Viewmodel1s.OrderResponsemodel1*@
+@using Autobots.Entities.Models.ViewModels
+@{
+    Layout = "~/Views/Shared/_EmailLayout.cshtml";
+    var model1 = (OrderResponseModel)ViewBag.response;
+    
+}
+<div class="row">
+    <div class="col-md-12">
+
+        <h2 style="color:#fff; text-align:center"> Your Appointment Details  </h2>
+
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        <h3 style="color:#fff; text-align:center"> Contact Information  </h3>
+
+        <div class="col-md-6">
+            <label>Name :</label><span>@model1.Name</span>
+            <label>Email :</label><span>@model1.email</span>
+            <label>Contact # :</label><span>@model1.contact</span>
+            <label>Address  :</label><span>@model1.address</span>
+            <label>Timings Slot  :</label><span>@model1.timings</span>
+        </div>
+        <div class="col-md-6">
+            <h3 style="color:#fff; text-align:center"> Car Information  </h3>
+
+            <label>Car Make :</label><span>@model1.Name</span>
+            <label>Car model1 :</label><span>@model1.email</span>
+            <label>Millege :</label><span>@model1.contact</span>
+            <label>Year  :</label><span>@model1.address</span>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        <h3 style="color:#fff; text-align:center"> Services Information  </h3>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6">
+           <table>
+               
+               <thead>
+               <tr>
+                   <td>Item Name</td>
+                   <td>Item Price</td>
+                   
+               </tr>    
+               </thead>
+               <tbody>
+                   @foreach (var item in model1.pricesofsubservices)
+                   {
+                   <tr>
+                       <td>@item.SubService.Name</td>
+                       <td>@item.Price</td>
+
+                   </tr>
+                   }
+               </tbody>
+
+
+           </table>
+
+        </div>
+        </div>
+    </div>
+
+
